@@ -1,6 +1,7 @@
 # Homework 2 - Computing for Data Science
 
-Group:
+## Group
+
 - María Victoria Suriel
 - María José Argote
 - Elvis Teodoro Casco
