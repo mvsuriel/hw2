@@ -230,28 +230,50 @@ print(country_with_most_cases(data))  # should return 'Italy'
 #
 # #
 import csv
+import requests
+import io
+
+filename = 'https://raw.githubusercontent.com/mvsuriel/hw2/refs/heads/main/covid.csv'
+
 def load_covid_data(filename):
-    with open(filename, mode='r') as file:
-        reader = csv.DictReader(file)
-        data = [row for row in reader]
+    response = requests.get(filename)
+    response.raise_for_status()  # Raise an exception for bad status codes
+    # Use io.StringIO to treat the string content as a file
+    csv_file = io.StringIO(response.text)
+    reader = csv.DictReader(csv_file)
+    data = [row for row in reader]
     return data
+
+# Inspect the keys of the first dictionary in the data to find the correct column name
+data = load_covid_data('https://raw.githubusercontent.com/mvsuriel/hw2/refs/heads/main/covid.csv')
+if data:
+    print(data[0].keys())
+else:
+    print("Data is empty.")
+
 def filter_countries_by_active_cases(data, threshold):
     return [row for row in data if int(row['Active']) > threshold]
+
 def calculate_average_death_confirmed(data):
     total_deaths = sum(int(row['Deaths']) for row in data)
     total_confirmed = sum(int(row['Confirmed']) for row in data)
     if total_confirmed == 0:
         return 0
     return total_deaths / total_confirmed
+
 def main():
-    data = load_covid_data('covid.csv')
+    data = load_covid_data('https://raw.githubusercontent.com/mvsuriel/hw2/refs/heads/main/covid.csv')
     thresholds = [500, 1000, 5000]
     for threshold in thresholds:
         filtered_data = filter_countries_by_active_cases(data, threshold)
         average = calculate_average_death_confirmed(filtered_data)
-        countries = [row['Country/Region'] for row in filtered_data]
+        countries = [row['Country'] for row in filtered_data]
         print(f'Countries with more than {threshold} active cases: {countries}')
         print(f'Average Death/Confirmed: {average:.4f}')
+
 if __name__ == '__main__':
     main()
-###############
+
+# Example output:
+# Countries with more than 500 active cases: ['Country1', 'Country2', ...]
+# Average Death/Confirmed: 0.0234   
