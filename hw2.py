@@ -5,6 +5,13 @@
 # the value of x multiplied
 # by three.
 #
+def triple(x):
+    return x * 3
+
+# Examples
+print(triple(3))  # should return 9
+print(triple(10)) # should return 30
+print(triple(-1)) # should return -3
 
 
 # 2)
@@ -12,6 +19,12 @@
 # takes two parameters and returns the result of
 # the second value subtracted from the first.
 #
+def subtract(a, b):
+    return a - b
+
+# Examples
+print(subtract(10, 4))  # should return 6
+print(subtract(4, 10))  # should return -6
 
 
 # 3)
@@ -26,8 +39,14 @@
 # it should return {'foo': 1, 'bar': 3}
 # You should program the function and not use
 # the function "dict" directly
+def dictionary_maker(tuples):
+    result = {}
+    for key, value in tuples:
+        result[key] = value
+    return result
 
-
+# Example
+print(dictionary_maker([('foo', 1), ('bar', 3)]))
 
 ############################################
 #
@@ -41,7 +60,9 @@
 #       {'user': 'jane', 'jobs': ['finance', 'software']}]
 # we will refer to this as a "CV".
 #
-
+CV = [
+    {'user': 'john', 'jobs': ['analyst', 'engineer']},
+    {'user': 'jane', 'jobs': ['finance', 'software']},]
 
 
 #
@@ -54,7 +75,17 @@
 # The function should return a list of strings
 # representing the usernames of every user that
 # has worked as job_title.
+def has_experience_as(cvs, job_title):
+    experienced_users = []
+    for cv in cvs:
+        if job_title in cv['jobs']:
+            experienced_users.append(cv['user'])
+    return experienced_users
 
+# Examples
+print(has_experience_as(CV, 'engineer'))  # should return ['john']
+print(has_experience_as(CV, 'finance'))   # should return ['jane']
+print(has_experience_as(CV, 'teacher'))   # should return []    
 
 
 #
@@ -65,7 +96,18 @@
 # keys are the job titles and the values
 # are the number of users that have done
 # that job.
+def job_counts(cvs):
+    counts = {}
+    for cv in cvs:
+        for job in cv['jobs']:
+            if job in counts:
+                counts[job] += 1
+            else:
+                counts[job] = 1
+    return counts
 
+# Example
+print(job_counts(CV))  # should return {'analyst': 1, 'engineeer': 1, 'finance': 1, 'software': 1}
 
 
 #
@@ -82,7 +124,18 @@
 # HINT: You can use the method '.items' on
 # dictionaries to iterate over them like a
 # list of tuples.
+def most_popular_job(cvs):
+    counts = job_counts(cvs)
+    most_popular = None
+    highest_count = 0
+    for job, count in counts.items():
+        if count > highest_count:
+            most_popular = job
+            highest_count = count
+    return (most_popular, highest_count)    
 
+# Example
+print(most_popular_job(CV))  # should return ('analyst', 1) or ('engineer', 1) or ('finance', 1) or ('software', 1) 
 
 
 ##############
@@ -106,6 +159,21 @@
 #
 # The function should return the total number of cases
 # registered so far in that country
+def total_registered_cases(data, country):
+    if country in data:
+        return sum(data[country])
+    else:
+        return 0
+
+# Examples
+data = {
+    'Spain': [4, 8, 2, 0, 1], 
+    'France': [2, 3, 6],
+    'Italy': [6, 8, 1, 7]}
+print(total_registered_cases(data, 'Spain'))   # should return 15
+print(total_registered_cases(data, 'France'))  # should return 11
+print(total_registered_cases(data, 'Italy'))   # should return 22
+print(total_registered_cases(data, 'Germany')) # should return 0   
 
 
 # 8)
@@ -117,6 +185,15 @@
 # per each country and as value the total number of cases
 # registered so far that the country had
 #
+def total_registered_cases_per_country(data):
+    totals = {}
+    for country, cases in data.items():
+        totals[country] = sum(cases)
+    return totals  
+
+# Example
+print(total_registered_cases_per_country(data))  # should return {'Spain': 15, 'France': 11, 'Italy': 22}
+
 
 
 # 9)
@@ -126,7 +203,18 @@
 #
 # The function should return the country with the
 # greatest total amount of cases
+def country_with_most_cases(data):
+    totals = total_registered_cases_per_country(data)
+    most_cases_country = None
+    highest_cases = 0
+    for country, cases in totals.items():
+        if cases > highest_cases:
+            most_cases_country = country
+            highest_cases = cases
+    return most_cases_country
 
+# Example  
+print(country_with_most_cases(data))  # should return 'Italy'   
 
 
 ###############
@@ -141,3 +229,29 @@
 #
 #
 # #
+import csv
+def load_covid_data(filename):
+    with open(filename, mode='r') as file:
+        reader = csv.DictReader(file)
+        data = [row for row in reader]
+    return data
+def filter_countries_by_active_cases(data, threshold):
+    return [row for row in data if int(row['Active']) > threshold]
+def calculate_average_death_confirmed(data):
+    total_deaths = sum(int(row['Deaths']) for row in data)
+    total_confirmed = sum(int(row['Confirmed']) for row in data)
+    if total_confirmed == 0:
+        return 0
+    return total_deaths / total_confirmed
+def main():
+    data = load_covid_data('covid.csv')
+    thresholds = [500, 1000, 5000]
+    for threshold in thresholds:
+        filtered_data = filter_countries_by_active_cases(data, threshold)
+        average = calculate_average_death_confirmed(filtered_data)
+        countries = [row['Country/Region'] for row in filtered_data]
+        print(f'Countries with more than {threshold} active cases: {countries}')
+        print(f'Average Death/Confirmed: {average:.4f}')
+if __name__ == '__main__':
+    main()
+###############
