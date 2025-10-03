@@ -22,9 +22,6 @@ git commit -m "Add hw2_fourth_questions.py with initial content"
 git push origin main
 
 
-
-
-
 # Modify files third_questions
 git add hw2_third_questions.py
 # Commit to local repository
@@ -54,4 +51,10 @@ git add hw2_first_questions.py
 # Commit to local repository
 git commit -m "Modify hw2_first_questions.py"
 # Update in github webpage
+git push origin main
+
+# Save changes
+git status
+git add .
+git commit -m "Save all changes"
 git push origin main
