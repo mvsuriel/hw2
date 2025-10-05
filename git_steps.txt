@@ -1,3 +1,11 @@
+# clone the repository
+git clone https://github.com/mvsuriel/hw2
+
+# Make sure you're in the branch
+git branch
+# Pull
+git pull origin main
+
 # Add new file
 git add hw2_third_questions.py
 # Commit to local repository
@@ -17,12 +25,6 @@ git branch
 git add hw2_fourth_questions.py
 git commit -m "Modify hw2_fourth_questions.py"
 git push origin main
-
-# Make sure you're in the branch
-git branch
-# Pull
-git pull origin main
-
 
 
 # Modify files third_questions
@@ -54,4 +56,10 @@ git add hw2_first_questions.py
 # Commit to local repository
 git commit -m "Modify hw2_first_questions.py"
 # Update in github webpage
+git push origin main
+
+# Save changes
+git status
+git add .
+git commit -m "Save all changes"
 git push origin main
