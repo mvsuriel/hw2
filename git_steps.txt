@@ -1,26 +1,15 @@
-# clone the repository
-git clone https://github.com/mvsuriel/hw2
-
-# Make sure you're in the branch
-git branch
-# Pull
+# Modify file
 git pull origin main
-
-# Add new file
-git add hw2_third_questions.py
-# Commit to local repository
-git commit -m "Add hw2_third_questions.py with initial content"
-# Update in github webpage
-git push origin main
-
-# Modify file
-git add git_steps.py
+git status
 git branch
-git commit -m "Modify git_steps.txt"
+git status
+git add git_steps.txt
+git commit -m "Add git_steps.txt with update instructions"
 git push origin main
 
-
 # Modify file
+git pull origin main
+git status
 git branch
 git add hw2_fourth_questions.py
 git commit -m "Modify hw2_fourth_questions.py"
@@ -56,10 +45,4 @@ git add hw2_first_questions.py
 # Commit to local repository
 git commit -m "Modify hw2_first_questions.py"
 # Update in github webpage
-git push origin main
-
-# Save changes
-git status
-git add .
-git commit -m "Save all changes"
 git push origin main
