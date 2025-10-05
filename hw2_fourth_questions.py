@@ -21,10 +21,15 @@ def analyze_covid(df):
 
     for threshold in thresholds:
         filtered_df = df[df['Active'] > threshold]
-        average_death_confirmed = filtered_df['Deaths'].sum() / filtered_df['Confirmed'].sum()
+        average_death_confirmed = (filtered_df['Deaths'] / filtered_df['Confirmed']).mean()
         countries = ', '.join(filtered_df['Country'].tolist())
         num_countries = len(filtered_df)
-        results.append({'Threshold': threshold, 'Countries': countries, 'Average Death/Confirmed': average_death_confirmed, 'Number of Countries': num_countries})
+        results.append({
+            'Threshold': threshold, 
+            'Average Death/Confirmed': average_death_confirmed, 
+            'Number of Countries': num_countries,
+            'Countries': countries, 
+            })
 
     results_df = pd.DataFrame(results)
 
@@ -35,7 +40,8 @@ def analyze_covid(df):
     print(f'\nMore than 500 active cases: {countries_thresh(500)}')
     print(f'\nMore than 1000 active cases: {countries_thresh(1000)}')
     print(f'\nMore than 5000 active cases: {countries_thresh(5000)}\n')
-    print(results_df)
+    
+    return results_df
 
 # Analyze the covid_df DataFrame and display the results
 analyze_covid(filename)
