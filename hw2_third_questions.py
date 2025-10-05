@@ -58,25 +58,4 @@ def country_with_most_cases(data):
     return most_cases_country
 
 # Example  
-print(country_with_most_cases(data))  # should return 'Italy'   
-
-
-# 9)
-# Create a function called "country_with_most_cases"
-# that has 1 parameter:
-# 1) The data structure described above
-#
-# The function should return the country with the
-# greatest total amount of cases
-def country_with_most_cases(data):
-    totals = total_registered_cases_per_country(data)
-    most_cases_country = None
-    highest_cases = 0
-    for country, cases in totals.items():
-        if cases > highest_cases:
-            most_cases_country = country
-            highest_cases = cases
-    return most_cases_country
-
-# Example  
-print(country_with_most_cases(data))  # should return 'Italy'   
+print(country_with_most_cases(data))  # should return 'Italy'
