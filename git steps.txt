@@ -1,0 +1,74 @@
+# Add new file
+git add git_steps.txt
+# Commit to local repository
+git commit -m "Add git_steps.txt to the repo"
+# Update in github webpage
+git push origin main
+
+
+# Add new file
+git add hw2_third_questions.py
+# Commit to local repository
+git commit -m "Add hw2_third_questions.py with initial content"
+# Update in github webpage
+git push origin main
+
+
+# Add new file
+git add hw2_fourth_questions.py
+# Commit to local repository
+git commit -m "Add hw2_fourth_questions.py with initial content"
+# Update in github webpage
+git push origin main
+
+
+# Add new file
+git add hw2.ipynb
+# Commit to local repository
+git commit -m "Add hw2.ipynb"
+# Update in github webpage
+git push origin main
+
+# Make sure you're in the branch
+git branch
+# Pull
+git pull origin main
+
+
+
+# Modify files third_questions
+git add hw2_third_questions.py
+# Commit to local repository
+git commit -m "Modify hw2_third_questions.py"
+# Update in github webpage
+git push origin main
+
+# Modify files hw2
+git add hw2.py
+# Commit to local repository
+git commit -m "Modify hw2.py"
+# Update in github webpage
+git push origin main
+
+
+# Modify files first_questions
+git add hw2_first_questions.py
+# Commit to local repository
+git commit -m "Modify hw2_first_questions.py"
+# Update in github webpage
+git push origin main
+
+
+
+# Modify files first_questions
+git add hw2_first_questions.py
+# Commit to local repository
+git commit -m "Modify hw2_first_questions.py"
+# Update in github webpage
+git push origin main
+
+
+# If you get an error:
+git pull origin main
+git add git_steps.txt
+git commit

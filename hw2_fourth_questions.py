@@ -21,26 +21,21 @@ def analyze_covid(df):
 
     for threshold in thresholds:
         filtered_df = df[df['Active'] > threshold]
+        average_death_confirmed = filtered_df['Deaths'].sum() / filtered_df['Confirmed'].sum()
+        countries = ', '.join(filtered_df['Country'].tolist())
+        num_countries = len(filtered_df)
+        results.append({'Threshold': threshold, 'Countries': countries, 'Average Death/Confirmed': average_death_confirmed, 'Number of Countries': num_countries})
 
-        if not filtered_df.empty:
-            average_death_confirmed = filtered_df['Deaths'].sum() / filtered_df['Confirmed'].sum()
-            countries = ', '.join(filtered_df['Country'].tolist())
-            results.append({'Threshold': threshold, 'Countries': countries, 'Average Death/Confirmed': average_death_confirmed})
-        else:
-            results.append({'Threshold': threshold, 'Countries': 'None', 'Average Death/Confirmed': 0}) # Or pd.NA
+    results_df = pd.DataFrame(results)
 
-    return pd.DataFrame(results)
+    # Print the countries for each threshold inside the function
+    def countries_thresh(value):
+        res = results_df[results_df['Threshold'] == value]['Countries'].iloc[0]
+        return res
+    print(f'\nMore than 500 active cases: {countries_thresh(500)}')
+    print(f'\nMore than 1000 active cases: {countries_thresh(1000)}')
+    print(f'\nMore than 5000 active cases: {countries_thresh(5000)}\n')
+    print(results_df)
 
 # Analyze the covid_df DataFrame and display the results
-results_df = analyze_covid(filename)
-print(results_df)
-
-# Get the countries for each threshold
-Threshold_500 = results_df[results_df['Threshold'] == 500]['Countries'].iloc[0]
-Threshold_1000 = results_df[results_df['Threshold'] == 1000]['Countries'].iloc[0]
-Threshold_5000 = results_df[results_df['Threshold'] == 5000]['Countries'].iloc[0]
-
-# Print the countries for each threshold
-print(f'Countries with more than 500 active cases: {Threshold_500}')
-print(f'Countries with more than 1000 active cases: {Threshold_1000}')
-print(f'Countries with more than 5000 active cases: {Threshold_5000}')
+analyze_covid(filename)
