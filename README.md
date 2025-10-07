@@ -3,7 +3,7 @@
 ## Group
 
 - María Victoria Suriel
-- María José Argote
+- Mariaosé Argote Corrales
 - Elvis Teodoro Casco
 
 ## Instructions
